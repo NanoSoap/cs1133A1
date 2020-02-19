@@ -1,3 +1,14 @@
+"""
+User interface for module currency
+
+When run as a script, this module prompts the user for two currencies and 
+an amount. It prints out the result of converting the first currency to 
+the second.
+
+Author: Tao Ge(tg367), Xinhui Yu(xy423)
+Date:   02/21/2020
+"""
+import a1
 def exchange(src, dst, amt):
     """
     Returns the amount of currency received in the given exchange.

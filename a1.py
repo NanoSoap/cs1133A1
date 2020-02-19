@@ -5,11 +5,11 @@ This module provides several string parsing functions to implement a
 simple currency exchange routine using an online currency service. 
 The primary function in this module is exchange.
 
-Author: YOUR NAME(S) AND NETID(S) HERE
-Date:   THE DATE COMPLETED HERE
+Author: Tao Ge(tg367), Xinhui Yu(xy423)
+Date:   02/21/2020
 """
 import json as j #using json parser
-import introcs as i 
+import introcs as i
 def before_space(s):
     """
     Returns a copy of s up to, but not including, the first space
@@ -18,7 +18,6 @@ def before_space(s):
     Precondition: s is a string with at least one space
     """
     return s.split()[0]
-
 
 def after_space(s):
     """
@@ -105,7 +104,7 @@ def has_error(json):
     """
     err=j.loads(json)
     return err["err"]
-def    currency_response(src, dst, amt):
+def currency_response(src, dst, amt):
     """
     Returns a JSON string that is a response to a currency query.
 
@@ -129,4 +128,32 @@ def    currency_response(src, dst, amt):
     Parameter amt: amount of currency to convert
     Precondition: amt is a float
     """
-    return '{ "ok":"true", "lhs":'+src+', "rhs":"'+ dst+'", "err":""}'
+    return '{ "ok":"true", "lhs":'+src+', "rhs":"'+dst+'", "err":""}'
+def is_currency(code):
+    """
+    Returns: True if code is a valid (3 letter code for a) currency
+    It returns False otherwise.
+
+    Parameter code: the currency code to verify
+    Precondition: code is a string with no spaces or non-letters.
+    """
+
+def exchange(src, dst, amt):
+    """
+    Returns the amount of currency received in the given exchange.
+
+    In this exchange, the user is changing amt money in currency 
+    src to the currency dst. The value returned represents the 
+    amount in currency dst.
+
+    The value returned has type float.
+
+    Parameter src: the currency on hand (the LHS)
+    Precondition: src is a string for a valid currency code
+    
+    Parameter dst: the currency to convert to (the RHS)
+    Precondition: dst is a string for a valid currency code
+    
+    Parameter amt: amount of currency to convert
+    Precondition: amt is a float
+    """
