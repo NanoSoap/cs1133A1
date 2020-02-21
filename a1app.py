@@ -9,22 +9,12 @@ Author: Tao Ge(tg367), Xinhui Yu(xy423)
 Date:   02/21/2020
 """
 import a1
-def exchange(src, dst, amt):
-    """
-    Returns the amount of currency received in the given exchange.
 
-    In this exchange, the user is changing amt money in currency src 
-    to the currency dst. The value returned represents the amount in 
-    currency dst.
-
-    The value returned has type float.
-
-    Parameter src: the currency on hand (the LHS)
-    Precondition: src is a string for a valid currency code
-    
-    Parameter dst: the currency to convert to (the RHS)
-    Precondition: dst is a string for a valid currency code
-    
-    Parameter amt: amount of currency to convert
-    Precondition: amt is a float
-    """
+l = input('Enter source currency:')
+r = input('Enter target currency:')
+a = input('Enter original amount:')
+if (not(a1.is_currency(l) and a1.is_currency(r))):
+    print('Wrong input!')
+else:
+    res = a1.exchange(l, r, a)
+    print('You can exchange '+a+' '+l+' for '+str(res)+' '+r + '.')

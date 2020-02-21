@@ -103,7 +103,7 @@ def has_error(json):
     Precondition: json is the response to a currency query
     """
     err=j.loads(json)
-    return err["err"]
+    return not err["ok"]
 def currency_response(src, dst, amt):
     """
     Returns a JSON string that is a response to a currency query.
@@ -128,7 +128,7 @@ def currency_response(src, dst, amt):
     Parameter amt: amount of currency to convert
     Precondition: amt is a float
     """
-    return '{ "ok":"true", "lhs":'+src+', "rhs":"'+dst+'", "err":""}'
+    return i.urlread('http://cs1110.cs.cornell.edu/2019fa/a1?src='+src+'&dst='+dst+'&amt='+str(amt)+'')
 def is_currency(code):
     """
     Returns: True if code is a valid (3 letter code for a) currency
@@ -138,6 +138,7 @@ def is_currency(code):
     Precondition: code is a string with no spaces or non-letters.
     """
 
+    return not has_error (currency_response(code,'USD',10))
 def exchange(src, dst, amt):
     """
     Returns the amount of currency received in the given exchange.
@@ -157,3 +158,5 @@ def exchange(src, dst, amt):
     Parameter amt: amount of currency to convert
     Precondition: amt is a float
     """
+    res=currency_response(src,dst,amt)
+    return float(get_rhs(res).split(' ')[0])

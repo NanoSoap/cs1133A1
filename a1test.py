@@ -52,7 +52,6 @@ def testB():
     introcs.assert_equals('2 Lesotho Maloti', result)
 
     
-    """
     #correct call
     result=a1.has_error('{ "ok":true, "lhs":"2.5 United States Dollars", "rhs":"64.375 Cuban Pesos", "err":"" }')
     introcs.assert_equals(False, result)
@@ -60,7 +59,6 @@ def testB():
     #wrong call
     result=a1.has_error('{ "ok":false, "lhs":"23 AAA", "rhs":"2.5 United States Dollars", "err":"Source currency code is invalid." }')
     introcs.assert_equals(True, result)
-    """
 
   
 
@@ -77,15 +75,15 @@ def testD():
     """
     #correct call for is_currency
     result=a1.is_currency('CNY')
-    introcs.assert_equals('True', result)
+    introcs.assert_equals(True, result)
 
     #wrong call for is_currency
     result=a1.is_currency('AAA')
-    introcs.assert_equals('False', result)
+    introcs.assert_equals(False, result)
 
     #test for exchange(src, dst, amt)
     result=a1.exchange('USD', 'CNY', 3.0)
-    introcs.assert_floats_equals('{ "ok":true, "lhs":"3 United States Dollars", "rhs":"20.642538 Chinese Yuan", "err":"" }', result)
+    introcs.assert_floats_equal(20.642538, result)
 
 
 
