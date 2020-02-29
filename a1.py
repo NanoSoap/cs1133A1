@@ -67,8 +67,9 @@ def get_lhs(json):
     Parameter json: a json string to parse
     Precondition: json is the response to a currency query
     """
-    lhs=j.loads(json)
-    return lhs["lhs"]
+    if has_error(json): return ''
+    return first_inside_quotes(json[json.find("lhs")+4:])
+
 
 def get_rhs(json):
     """
@@ -89,8 +90,9 @@ def get_rhs(json):
     Parameter json: a json string to parse
     Precondition: json is the response to a currency query
     """
-    rhs=j.loads(json)
-    return rhs["rhs"]
+    if has_error(json): return ''
+    return first_inside_quotes(json[json.find("rhs")+4:])
+  
 
 def has_error(json):
     """
@@ -169,4 +171,4 @@ def exchange(src, dst, amt):
     Precondition: amt is a float
     """
     res=currency_response(src,dst,amt)
-    return float(get_rhs(res).split(' ')[0])
+    return float(before_space(get_rhs(res)))
