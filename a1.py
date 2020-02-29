@@ -6,10 +6,11 @@ simple currency exchange routine using an online currency service.
 The primary function in this module is exchange.
 
 Author: Tao Ge(tg367), Xinhui Yu(xy423)
-Date:   02/21/2020
+Date:   02/27/2020
 """
 import json as j #using json parser
 import introcs as i
+
 def before_space(s):
     """
     Returns a copy of s up to, but not including, the first space
@@ -17,7 +18,8 @@ def before_space(s):
     Parameter s: the string to slice
     Precondition: s is a string with at least one space
     """
-    return s.split()[0]
+    q1=s.find(' ')
+    return s[:q1]
 
 def after_space(s):
     """
@@ -26,7 +28,8 @@ def after_space(s):
     Parameter s: the string to slice
     Precondition: s is a string with at least one space
     """
-    return s.split()[1]
+    q2=s.find(' ')
+    return s[q2+1:]
 
 def first_inside_quotes(s):
     """
@@ -45,6 +48,7 @@ def first_inside_quotes(s):
     Precondition: s is a string containing at least two double quotes
     """
     return s.split('"')[1]
+
 def get_lhs(json):
     """
     Returns the lhs value in the response to a currency query
@@ -65,6 +69,7 @@ def get_lhs(json):
     """
     lhs=j.loads(json)
     return lhs["lhs"]
+
 def get_rhs(json):
     """
     Returns the rhs value in the response to a currency query
@@ -86,6 +91,7 @@ def get_rhs(json):
     """
     rhs=j.loads(json)
     return rhs["rhs"]
+
 def has_error(json):
     """
     Returns True if the query has an error; False otherwise.
@@ -104,6 +110,7 @@ def has_error(json):
     """
     err=j.loads(json)
     return not err["ok"]
+
 def currency_response(src, dst, amt):
     """
     Returns a JSON string that is a response to a currency query.
@@ -128,7 +135,9 @@ def currency_response(src, dst, amt):
     Parameter amt: amount of currency to convert
     Precondition: amt is a float
     """
-    return i.urlread('http://cs1110.cs.cornell.edu/2019fa/a1?src='+src+'&dst='+dst+'&amt='+str(amt)+'')
+    return i.urlread('http://cs1110.cs.cornell.edu/2019fa/a1?src='+src+'&dst='+dst+\
+        '&amt='+str(amt)+'')
+
 def is_currency(code):
     """
     Returns: True if code is a valid (3 letter code for a) currency
@@ -139,6 +148,7 @@ def is_currency(code):
     """
 
     return not has_error (currency_response(code,'USD',10))
+    
 def exchange(src, dst, amt):
     """
     Returns the amount of currency received in the given exchange.
